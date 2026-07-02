@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.oculix.douyin.gui.MainController" spacing="5"
+      stylesheets="@/style.css">
+    <!-- Header -->
+    <HBox spacing="10" alignment="CENTER_LEFT" styleClass="header">
+        <padding><Insets top="10" right="15" bottom="10" left="15"/></padding>
+        <Label text="OculiX 抖音评论引流助手" styleClass="header-title">
+            <font><Font size="18"/></font>
+        </Label>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnSettings" text="⚙ 设置" styleClass="btn-settings" onAction="#handleSettings"/>
+        <Label fx:id="statusLabel" text="待机中" styleClass="status-label"/>
+    </HBox>
+    <Separator/>
+    <!-- Control Panel -->
+    <HBox spacing="8" alignment="CENTER_LEFT" styleClass="control-panel">
+        <padding><Insets top="8" right="15" bottom="8" left="15"/></padding>
+        <Button fx:id="btnStart" text="开始" styleClass="btn-primary" prefWidth="90"/>
+        <Button fx:id="btnPause" text="暂停" disable="true" prefWidth="90"/>
+        <Button fx:id="btnStop" text="停止" disable="true" styleClass="btn-danger" prefWidth="90"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnSaveAll" text="保存所有配置" styleClass="btn-secondary" prefWidth="120"/>
+    </HBox>
+    <Separator/>
+    <!-- Tabbed Configuration Panel -->
+    <TabPane styleClass="config-tab-pane" tabClosingPolicy="UNAVAILABLE" prefHeight="230">
+        <Tab text="截流关键词">
+            <VBox spacing="6" styleClass="keywords-panel">
+                <padding><Insets top="8" right="15" bottom="8" left="15"/></padding>
+                <Label text="行业标签/关键词" styleClass="section-label"/>
+                <Label text="填写目标行业的标签或关键词，每行一个。机器人将按这些关键词搜索视频。" styleClass="hint-label" wrapText="true"/>
+                <HBox spacing="10">
+                    <TextArea fx:id="keywordsArea" promptText="美妆 护肤&#10;数码 评测&#10;穿搭 好物推荐&#10;家居 装修"
+                              HBox.hgrow="ALWAYS" prefRowCount="4" wrapText="true" styleClass="keywords-input"/>
+                    <VBox spacing="6" alignment="TOP_CENTER">
+                        <Button fx:id="btnApplyKeywords" text="应用" styleClass="btn-small-primary" prefWidth="80"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </Tab>
+        <Tab text="截流内容模板">
+            <VBox spacing="6" styleClass="keywords-panel">
+                <padding><Insets top="8" right="15" bottom="8" left="15"/></padding>
+                <Label text="评论发送策略" styleClass="section-label"/>
+                <Label text="配置机器人发送评论的方式和内容模板。" styleClass="hint-label" wrapText="true"/>
+                <!-- LLM Strategy Selector -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="生成方式:" styleClass="form-label"/>
+                    <ComboBox fx:id="strategyCombo" prefWidth="200">
+                    </ComboBox>
+                </HBox>
+                <!-- LLM Prompt Template (visible when AI mode) -->
+                <VBox fx:id="llmTemplatePanel" spacing="4">
+                    <Label text="AI指令框架" styleClass="form-label"/>
+                    <Label text="设定AI生成评论的风格和方向。机器人会参考这个框架+视频内容生成评论。" styleClass="hint-label" wrapText="true"/>
+                    <TextArea fx:id="llmPromptArea" promptText="你是用户，正在看一个短视频。请写一条自然的口语评论，表达认可和共鸣，语气诚恳。可以参考句式：&quot;说得太对了！我也是这么觉得的{关键词}，关注你了~&quot;"
+                              prefRowCount="3" wrapText="true" styleClass="keywords-input"/>
+                </VBox>
+                <!-- Fixed Comment List (visible when fixed mode) -->
+                <VBox fx:id="fixedCommentPanel" spacing="4">
+                    <Label text="固定文案库" styleClass="form-label"/>
+                    <Label text="每行一条，机器人会随机选取一条发送。" styleClass="hint-label" wrapText="true"/>
+                    <TextArea fx:id="fixedCommentArea" promptText="说得太对了！&#10;学到了，感谢分享！&#10;这个观点我支持！&#10;很有帮助，收藏了！"
+                              prefRowCount="3" wrapText="true" styleClass="keywords-input"/>
+                </VBox>
+            </VBox>
+        </Tab>
+    </TabPane>
+    <Separator/>
+    <!-- Stats Cards -->
+    <HBox spacing="10" styleClass="stats-panel">
+        <padding><Insets top="5" right="15" bottom="5" left="15"/></padding>
+        <VBox styleClass="stat-card" spacing="3" HBox.hgrow="ALWAYS">
+            <Label text="发现视频" styleClass="stat-label"/>
+            <Label fx:id="videosFoundLabel" text="0" styleClass="stat-value"/>
+        </VBox>
+        <VBox styleClass="stat-card" spacing="3" HBox.hgrow="ALWAYS">
+            <Label text="评论成功" styleClass="stat-label"/>
+            <Label fx:id="commentsSuccessLabel" text="0" styleClass="stat-value-positive"/>
+        </VBox>
+        <VBox styleClass="stat-card" spacing="3" HBox.hgrow="ALWAYS">
+            <Label text="失败" styleClass="stat-label"/>
+            <Label fx:id="commentsFailedLabel" text="0" styleClass="stat-value-negative"/>
+        </VBox>
+        <VBox styleClass="stat-card" spacing="3" HBox.hgrow="ALWAYS">
+            <Label text="跳过" styleClass="stat-label"/>
+            <Label fx:id="commentsSkippedLabel" text="0" styleClass="stat-value-warn"/>
+        </VBox>
+        <VBox styleClass="stat-card" spacing="3" HBox.hgrow="ALWAYS">
+            <Label text="成功率" styleClass="stat-label"/>
+            <Label fx:id="successRateLabel" text="0%" styleClass="stat-value"/>
+        </VBox>
+        <VBox styleClass="stat-card" spacing="3" HBox.hgrow="ALWAYS">
+            <Label text="AI生成" styleClass="stat-label"/>
+            <Label fx:id="llmGeneratedLabel" text="0" styleClass="stat-value"/>
+        </VBox>
+        <VBox styleClass="stat-card" spacing="3" HBox.hgrow="ALWAYS">
+            <Label text="运行时间" styleClass="stat-label"/>
+            <Label fx:id="runningTimeLabel" text="0分" styleClass="stat-value"/>
+        </VBox>
+    </HBox>
+    <Separator/>
+    <!-- Log Area -->
+    <VBox VBox.vgrow="ALWAYS" spacing="3">
+        <padding><Insets top="3" right="15" bottom="8" left="15"/></padding>
+        <Label text="运行日志" styleClass="section-label"/>
+        <TextArea fx:id="logArea" editable="false" wrapText="true"
+                  VBox.vgrow="ALWAYS">
+            <font><Font size="12"/></font>
+        </TextArea>
+    </VBox>
+</VBox>
