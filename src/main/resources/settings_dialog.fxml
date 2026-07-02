@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.oculix.douyin.gui.SettingsDialog" spacing="12"
+      stylesheets="@/style.css" prefWidth="480" prefHeight="320">
+
+    <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+
+    <Label fx:id="dialogTitle" styleClass="section-label">
+        <font><Font size="16"/></font>
+    </Label>
+    <Label fx:id="dialogDesc" styleClass="hint-label" wrapText="true"/>
+
+    <Separator/>
+
+    <VBox spacing="4">
+        <Label fx:id="labelApiUrl" styleClass="form-label"/>
+        <TextField fx:id="apiUrlField" promptText="https://api.minimax.chat/v1/text/chatcompletion_v2"
+                   styleClass="settings-input"/>
+        <Label fx:id="labelApiUrlHint" styleClass="hint-label" wrapText="true"/>
+    </VBox>
+
+    <VBox spacing="4">
+        <Label fx:id="labelApiKey" styleClass="form-label"/>
+        <PasswordField fx:id="apiKeyField" promptText="sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                       styleClass="settings-input"/>
+    </VBox>
+
+    <VBox spacing="4">
+        <Label fx:id="labelModel" styleClass="form-label"/>
+        <TextField fx:id="modelNameField" promptText="MiniMax-VL (看图) / gpt-4o / deepseek-chat"
+                   styleClass="settings-input"/>
+    </VBox>
+
+    <Region VBox.vgrow="ALWAYS"/>
+
+    <Separator/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="btnReset" styleClass="btn-small" onAction="#handleReset"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnCancel" styleClass="btn-small" onAction="#handleCancel"/>
+        <Button fx:id="btnSave" styleClass="btn-small-primary" onAction="#handleSave"/>
+    </HBox>
+
+</VBox>

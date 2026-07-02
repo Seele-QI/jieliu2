@@ -1,0 +1,38 @@
+{
+  "monitor": {
+    "enabled": true,
+    "keywords": [
+      "建筑"
+    ],
+    "topics": []
+  },
+  "comment": {
+    "framework": "你是用户，正在看一个短视频。请写一条自然的口语评论，表达认可和共鸣，语气诚恳。",
+    "variants": [
+      "说得太对了！",
+      "学到了，感谢分享！",
+      "这个观点我支持！",
+      "很有帮助，收藏了！"
+    ],
+    "llm": {
+      "enabled": true,
+      "apiUrl": "https://api.minimax.chat/v1/text/chatcompletion_v2",
+      "apiKey": "YOUR_API_KEY",
+      "model": "MiniMax-M3",
+      "temperature": 0.1,
+      "maxTokens": 500
+    }
+  },
+  "antiDetection": {
+    "minDelaySeconds": 3,
+    "maxDelaySeconds": 8,
+    "mouseSpeed": {
+      "min": 80,
+      "max": 150
+    }
+  },
+  "audit": {
+    "logPath": "./logs/audit.jsonl",
+    "maxFileSizeMB": 10
+  }
+}

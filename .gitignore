@@ -1,0 +1,10 @@
+target/
+dist/
+logs/
+META-INF/
+dependency-reduced-pom.xml
+config/config.json
+*.log
+.idea/
+*.iml
+.DS_Store
